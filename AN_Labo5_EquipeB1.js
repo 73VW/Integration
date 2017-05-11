@@ -16,43 +16,36 @@ function $name(name) {
 }
 
 /*******************************************************/
-/*  Web Worker                                         */
+/* PI Calculation                                      */
 /*******************************************************/
 
-function initWorkers() {
-    if (typeof(Worker) === "undefined") {
-        console.log("Sorry, your browser does not support Web Workers...");
-    } else {
-        console.log("Browser supported");
-
-        if (typeof(workerFunction) == "undefined")
-            workerFunction = new Worker("AN_Labo4_EquipeB1_Worker.js");
-        if (typeof(workerPrime) == "undefined")
-            workerPrime = new Worker("AN_Labo4_EquipeB1_Worker.js");
-        if (typeof(workerSecond) == "undefined")
-            workerSecond = new Worker("AN_Labo4_EquipeB1_Worker.js");
-
-        workerFunction.onmessage = function(event) {};
-
-        workerPrime.onmessage = function(event) {};
-
-        workerSecond.onmessage = function(event) {};
-
-        let errorFct = function(event) {
-            console.log(event.message);
-        };
-
-        workerFunction.onerror = workerPrime.onerror = workerSecond.onerror = errorFct;
-    }
+// The integration of this function between 0 and 1 = pi/4
+function piOverFourPrime(x) {
+    return 1 / (1 + x * x);
 }
 
-/*******************************************************/
-/*  HTML/User interactions                             */
-/*******************************************************/
 
-function main() {
-    //Theads
-    // initWorkers();
-    // workerFunction.postMessage(['cos', interval]);
+function calculatePI()
+{
+    let start = performance.now();
+    
+    var a = 0;
+    var b = 1;
+    var n = 500;
 
+    var fa = piOverFourPrime(a)
+    var fb = piOverFourPrime(b);
+
+    h = (b - a) / n;
+    j = fa
+
+    for (i = 1; i <= n - 2; i = i + 2) {
+        x = a + i * h;
+        j = j + 4 * piOverFourPrime(x) + 2 * piOverFourPrime(x + h)
+    }
+    j = j + 4 * piOverFourPrime(b - h) + piOverFourPrime(b);
+    
+    let time = performance.now() - start;
+    $('time').value = time + " ms";
+    $('result').value = j * h / 3 * 4;
 }
