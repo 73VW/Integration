@@ -29,23 +29,27 @@ function calculatePI()
 {
     let start = performance.now();
     
-    var a = 0;
-    var b = 1;
-    var n = 500;
+    let a = 0;
+    let b = 1;
+    let n = 752;
 
-    var fa = piOverFourPrime(a)
-    var fb = piOverFourPrime(b);
+    let fa = piOverFourPrime(a);
+    let fb = piOverFourPrime(b);
 
-    h = (b - a) / n;
-    j = fa
+    let h = (b - a) / n;
+    let j = fa;
+    
+    let x;
 
-    for (i = 1; i <= n - 2; i = i + 2) {
+    for (let i = 1; i < n - 2; i = i + 2) {
         x = a + i * h;
-        j = j + 4 * piOverFourPrime(x) + 2 * piOverFourPrime(x + h)
+        j = j + 4 * piOverFourPrime(x) + 2 * piOverFourPrime(x + h);
     }
     j = j + 4 * piOverFourPrime(b - h) + piOverFourPrime(b);
     
     let time = performance.now() - start;
-    $('time').value = time + " ms";
-    $('result').value = j * h / 3 * 4;
+    
+    $('time').value = time.toFixed(4) + " ms";
+    $('result').value = (4 * j * h / 3).toFixed(17);
+    $('realPI').value = Math.PI.toFixed(17);
 }
