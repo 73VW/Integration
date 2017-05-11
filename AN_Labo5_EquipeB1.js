@@ -24,7 +24,7 @@ function piOverFourPrime(x) {
     return 1 / (1 + x * x);
 }
 
-
+// source: http://serge.mehl.free.fr/anx/meth_simpson.html
 function calculatePI()
 {
     let start = performance.now();
