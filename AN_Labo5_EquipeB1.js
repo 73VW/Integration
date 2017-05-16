@@ -1,6 +1,6 @@
 /***********************************************************/
 /*  Authors : Axel Rieben, Maël Pedretti, Quentin Vaucher  */
-/*  Date : 9 mai 2017                                   */
+/*  Date : 14 mai 2017                                     */
 /***********************************************************/
 
 /*******************************************************/
@@ -25,11 +25,11 @@ function piOverFourPrime(x) {
 }
 
 
+// Calculate PI using the Simpson Method
 // source: http://serge.mehl.free.fr/anx/meth_simpson.html
-function calculatePI()
-{
+function calculatePI() {
     let start = performance.now();
-    
+
     let a = 0;
     let b = 1;
     let n = 752;
@@ -39,7 +39,7 @@ function calculatePI()
 
     let h = (b - a) / n;
     let j = fa;
-    
+
     let x;
 
     for (let i = 1; i < n - 2; i = i + 2) {
@@ -47,9 +47,9 @@ function calculatePI()
         j = j + 4 * piOverFourPrime(x) + 2 * piOverFourPrime(x + h);
     }
     j = j + 4 * piOverFourPrime(b - h) + piOverFourPrime(b);
-    
+
     let time = performance.now() - start;
-    
+
     $('time').value = time.toFixed(4) + " ms";
     $('result').value = (4 * j * h / 3).toFixed(17);
     $('realPI').value = Math.PI.toFixed(17);
